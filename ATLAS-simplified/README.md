@@ -1,10 +1,12 @@
-# ATLAS toy geometry
+# Simplified ATLAS calorimeter geometry
 
 A (very) simplified version of [ATLAS detector](https://iopscience.iop.org/article/10.1088/1748-0221/3/08/S08003) callorimeter incorporating the concept of a sampling callorimeter.
-Full technical details on the calorimeter design can be found in ([ECAL ref](https://cds.cern.ch/record/331061/files/CERN-LHCC-96-41.pdf)) 
-and in [HCAL ref](https://cds.cern.ch/record/2004868/files/ATL-TILECAL-PROC-2015-002.pdf).
+
+Full technical details on the electro-magnetic calorimeter (ECAL) design can be found in [ECAL ref](https://cds.cern.ch/record/331061/files/CERN-LHCC-96-41.pdf)
+and  about hadronic calorimeter (HCAL) design can be found in [HCAL ref](https://cds.cern.ch/record/2004868/files/ATL-TILECAL-PROC-2015-002.pdf).
+
 The detector granularity matches ATLAS geometry at &eta;=0 (barrel). The detector conposited from 6 layers:
-3 form the Electro-Magnetic Callorimeter (ECAL) and 3 form the Hadronid Callorimeter (HCAL).
+3 form the Electro-Magnetic Callorimeter and 3 form the Hadronid Callorimeter.
 A side view of the detector setup is shown in Fig. 1.
 
 ![Fig 1: Scheme of detector layers](images/calorimeter_layers.png)
