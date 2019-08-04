@@ -11,18 +11,16 @@ git clone https://USERNAME:PASSWORD@github.com/mpitt82/Geant4-models.git
 The examples are build with CMake cross-platform, and compiled with GEANT4 instalation. 
 To build a specific model, one need to setup corresponding ENV:
 ```bash
-mkdir -pv Geant4-models/EXAMPLE/build; cd Geant4-models/EXAMPLE/build
-cmake ../
-make -j
-#lsetup "root 6.14.04-x86_64-slc6-gcc62-opt"
-#lsetup "sft releases/LCG_95/Geant4/10.05"
-#lsetup "sft releases/LCG_95/clhep/2.4.1.0"
+export Geant4_DIR=PATH_TO_GEANT4_INSTALL
+#if using CERN/CVMFS with CENTOS7
+#source /cvmfs/sft.cern.ch/lcg/releases/LCG_95/Geant4/10.05/x86_64-centos7-gcc8-opt/Geant4-env.sh
 ```
 
 now one can build the model:
 ```bash
 mkdir -pv Geant4-models/EXAMPLE/build; cd Geant4-models/EXAMPLE/build
 cmake ../
+make -j
 ```
 where 
 
