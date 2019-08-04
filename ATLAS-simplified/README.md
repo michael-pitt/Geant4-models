@@ -6,9 +6,9 @@ A (very) simplified version of [ATLAS detector](https://iopscience.iop.org/artic
 ```bash
 export Geant4_DIR=PATH_TO_GEANT4_INSTALL
 #if using CERN/CVMFS with CENTOS7
-#source /cvmfs/sft.cern.ch/lcg/releases/LCG_95/Geant4/10.05/x86_64-centos7-gcc8-opt/Geant4-env.sh
+#source setupCVMFS.sh
 mkdir build; cd build
-cmake ../; make -j
+cmake ../ATLAS-simplified; make -j
 ```
 
 ## Geometry discription:
