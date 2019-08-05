@@ -22,7 +22,6 @@ mkdir -pv Geant4-models/EXAMPLE/build; cd Geant4-models/EXAMPLE/build
 cmake ../
 make -j
 ```
-where 
 
 ## ATLAS-simplified
 
