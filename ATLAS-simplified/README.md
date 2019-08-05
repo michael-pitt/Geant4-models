@@ -33,7 +33,8 @@ The energy resolution of ECAL geometry was simulated to be &sigma;/E=6.5%/&radic
  sampling fraction of about 25%.
  
 Cell granularity was defined similar to ATLAS ECAL granularity at &eta;=0:
-| Layer  | dx X dy \[mm<sup>2</sup>\]| d&eta; X d&phi; | total X0 |
+
+| Layer  | dx X dy \[mm<sup>2</sup>\]| d&eta; X d&phi; | total X<sub>0</sub> |
 | ------------- | ------------- | ------------- | ------------- |
 | ECAL 1  | 4.5 X 144  | 0.025/8 X 0.1 | 6 |
 | ECAL 2  | 36 X 36  | 0.025 X 0.025 | 16 |
@@ -56,7 +57,7 @@ The energy resolution of HCAL geometry was simulated to be &sigma;/E=35%/&radic;
 
 Cell granularity was defined similar to ATLAS HCAL granularity at &eta;=0:
 
-| Layer  | dx X dy \[mm<sup>2</sup>\]| d&eta; X d&phi; | total &Lambda;<sub>int</sub> |
+| Layer  | dx X dy \[mm<sup>2</sup>\]| d&eta; X d&phi; | total &lambda;<sub>int</sub> |
 | ------------- | ------------- | ------------- | ------------- |
 | HCAL 1  | 144 X 144  | 0.1 X 0.1 | 1.5 |
 | HCAL 2  | 144 X 144  | 0.1 X 0.1 | 4.1 |
