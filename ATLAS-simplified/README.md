@@ -63,13 +63,11 @@ Cell granularity was defined similar to ATLAS HCAL granularity at &eta;=0:
 | HCAL 2  | 144 X 144  | 0.1 X 0.1 | 4.1 |
 | HCAL 3  | 288 X 288  | 0.2 X 0.2 | 1.8 |
 
-Scintillator response ratio between em and had shower components was taken to be 1:0.2 (to match e/h=1.47)
-
 ## Energy response
 
 ECAL and HCAL were calibrated at EM scale, and a constant calibration factor of C<sub>ECAL</sub>=3.682 
 and C<sub>HCAL</sub>=42.006 were extracted respectively, 
-by shooting electrons in an energy range between 10 to 50 GeV.
+by shooting electrons in an energy range between 10 to 50 GeV. In addition for HCAL a scintillator response ratio between em and had shower components was taken to be 1:0.2 (to match e/h=1.47)
  
 The detector energy resolution for 15 GeV pions is shown in Fig 5.
 
