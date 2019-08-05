@@ -79,5 +79,5 @@ The detector energy resolution for 15 GeV pions is shown in Fig 5.
 ## Output
 
 The output is a ROOT file that contains `vector<float>` of cell energy and coordinates, as well as the information about primary particles.
-In `src/RunAction.cc` implemenation of saving <vector> objects in ROOT file using GEANT4 simulation is shown.
+In `src/RunAction.cc` implemenation of saving vectors in ROOT file using CreateNtupleDColumn of GEANT4 G4AnalysisManager instance is shown.
 
