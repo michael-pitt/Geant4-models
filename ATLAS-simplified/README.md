@@ -55,6 +55,7 @@ The energy resolution of HCAL geometry was simulated to be &sigma;/E=35%/&radic;
  sampling fraction of about 2%.
 
 Cell granularity was defined similar to ATLAS HCAL granularity at &eta;=0:
+
 | Layer  | dx X dy \[mm<sup>2</sup>\]| d&eta; X d&phi; | total &Lambda;<sub>int</sub> |
 | ------------- | ------------- | ------------- | ------------- |
 | HCAL 1  | 144 X 144  | 0.1 X 0.1 | 1.5 |
@@ -65,7 +66,9 @@ Scintillator response ratio between em and had shower components was taken to be
 
 ## Energy response
 
-ECAL and HCAL were calibrated at EM scale, and a constant calibration factor of C<sub>ECAL<\sub>=3.682 and C<sub>ECAL<\sub>=3.682 were extracted respectively, by shooting electrons in an energy range between 10 to 50 GeV.
+ECAL and HCAL were calibrated at EM scale, and a constant calibration factor of C<sub>ECAL</sub>=3.682 
+and C<sub>HCAL</sub>=42.006 were extracted respectively, 
+by shooting electrons in an energy range between 10 to 50 GeV.
  
 The detector energy resolution for 15 GeV pions is shown in Fig 5.
 
