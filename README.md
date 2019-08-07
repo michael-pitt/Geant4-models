@@ -1,5 +1,5 @@
 # Geant4-models
-:construction: <font color="red"> NOTE </font>:**This project is under development** :construction:
+:construction: **<font color="red"> NOTE </font>:This project is under development** :construction:
 
 This repository contains few Geant4 models:
 
