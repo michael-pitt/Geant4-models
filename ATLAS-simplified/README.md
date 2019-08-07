@@ -14,7 +14,7 @@ cmake ../ATLAS-simplified; make -j
 ## Geometry description:
 
 Full technical details on the electro-magnetic calorimeter (ECAL) design can be found in [ECAL ref](https://cds.cern.ch/record/331061/files/CERN-LHCC-96-41.pdf)
-and on hadronic calorimeter (HCAL) design can be found in [HCAL ref](https://cds.cern.ch/record/2004868/files/ATL-TILECAL-PROC-2015-002.pdf).
+and on hadronic calorimeter (HCAL) design can be found in [HCAL ref](http://cds.cern.ch/record/331062).
 
 The detector granularity matches ATLAS geometry at &eta;=0 (barrel). The detector composited from 6 layers:
 3 form the Electro-Magnetic Calorimeter and 3 forms the Hadronid Calorimeter.
@@ -67,11 +67,17 @@ Cell granularity was defined similar to ATLAS HCAL granularity at &eta;=0:
 
 ECAL and HCAL were calibrated at EM scale, and a constant calibration factor of C<sub>ECAL</sub>=3.682 
 and C<sub>HCAL</sub>=42.006 were extracted respectively, 
-by shooting electrons in an energy range between 10 to 50 GeV. In addition for HCAL a scintillator response ratio between em and had shower components was taken to be 1:0.2 (to match e/h=1.47)
- 
-The detector energy resolution for 15 GeV pions is shown in Fig 5.
+by shooting electrons in an energy range between 10 to 30 GeV.
 
-![Fig 5: Calorimeter energy responce](images/Cal_responce_15GeV.png)
+In addition the HCAL scintillator response function for hadrons was applied. Scintilator Light Yield is depend on a particle type.
+Using data for commertial scintilator ([BC400](https://www.crystals.saint-gobain.com/sites/imdf.crystals.com/files/documents/sgc-organics-plastic-scintillators_0.pdf))
+energy deposits from hadrons were multiplied by Light Yield Ratio (LYR) factor obtained from the data sheet. 
+The LYR factor is shown in Fig 5.
+![Fig 5: Light Yield Ratio factor for plastic sintilator](images/LYR.png)
+ 
+The detector energy resolution for 15 GeV pions is shown in Fig 6.
+
+![Fig 6: Calorimeter energy responce](images/Cal_responce_15GeV.png)
 
 
 ## Output

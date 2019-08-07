@@ -64,10 +64,10 @@ void CaloRPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   
   // If you whish to code the generated particles
   // comment this line and uncomment the next block
-  //fParticleGun->GeneratePrimaryVertex(anEvent);
+  fParticleGun->GeneratePrimaryVertex(anEvent);
   
-  
-  // TwoPions
+  // MultiParticles
+  /*
   G4String ListParticles[13] = {"mu+", "mu-", "pi+", "pi-",
 							 "e+", "e-", "proton", "anti_proton",
 							 "gamma", "neutron", "anti_neutron","anti_kaon0","kaon0L"};
@@ -91,7 +91,7 @@ void CaloRPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fParticleGun->GeneratePrimaryVertex(anEvent);
 
   // generate pi+
-  /*
+  
   fParticleGun = nullptr ;
   fParticleGun = new G4ParticleGun(1);
   theta = CLHEP::pi/20. + CLHEP::pi/10. *G4UniformRand();

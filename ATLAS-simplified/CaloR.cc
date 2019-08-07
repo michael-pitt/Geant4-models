@@ -37,8 +37,7 @@
 #endif
 #include "G4UImanager.hh"
 
-#include "FTFP_BERT.hh"
-#include "QGSP_BERT.hh"
+#include "QGSP_FTFP_BERT.hh"
 //#include "G4OpticalPhysics.hh"
 #include "G4EmStandardPhysics_option4.hh"
 #include "G4HadronicProcessStore.hh"
@@ -59,7 +58,6 @@
 #include "RunAction.hh"
 
 
-#include "TROOT.h"
 
 int main(int argc, char** argv)
 {
@@ -67,9 +65,6 @@ int main(int argc, char** argv)
   G4UIExecutive* ui = nullptr;
   G4long seed(0);
   if ( argc == 1 ) {
-	// to get rid of the nasty "LLVM SYMBOLS ARE EXPOSED TO CLING" error
-	// https://root-forum.cern.ch/t/error-llvm-symbols-exposed-to-cling/23597
-	gROOT->GetInterpreter(); 
     ui = new G4UIExecutive(argc, argv);
   }
   else if( argc == 2 ){
@@ -106,13 +101,14 @@ int main(int argc, char** argv)
   runManager-> SetUserInitialization(detector);
 
   
-  // Use FTF/Preco and BERT:
+  // Use GSP + FTF/Preco + BERT:
+  // Gluon String Plasma model (QGSP) for high energies the hadron showers
   // Fritiof string model (FTF) for  hadron-nucleus at Plab interactions >3GeV
   // Precompound and deexcitation (Preco)
   // Bertini Cascade (BERT) for  hadron-nucleus at Plab interactions <3GeV
-  //G4VModularPhysicsList* physics = new FTFP_BERT;
+  //G4VModularPhysicsList* physics = new QGSP_FTFP_BERT;
   //physics->ReplacePhysics(new G4EmStandardPhysics_option4());
-  G4VUserPhysicsList* physics = new FTFP_BERT;
+  G4VUserPhysicsList* physics = new QGSP_FTFP_BERT;
   runManager-> SetUserInitialization(physics);
   
   // Supress annoying "HADRONIC PROCESSES SUMMARY"

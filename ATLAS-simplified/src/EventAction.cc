@@ -295,16 +295,19 @@ void CaloREventAction::EndOfEventAction(const G4Event* /*event*/)
 }
 
 
-G4double CaloREventAction::CalibrateCellEnergy(G4double de, G4String c_name, G4int EMflag)
+G4double CaloREventAction::CalibrateCellEnergy(G4double de, G4String c_name, G4int DynParflag)
 {
-	
+ // Cell energy calibration includes Tile scintilator energy correction to hadrons (protons)
+ // Responce to alphas and carbons ignored but the fractions coded in data/BC400_LYR.csv
+ 
   // cell EM calibration:
   if(c_name.contains("ECAL")){
 	  de*=ECAL_cell_calib;
   }
   else{
 	  de*=HCAL_cell_calib;
-	  if(!EMflag) de*=HCAL_HE_RATIO;
+	  if(DynParflag==1) de*=HCAL_HE_RATIO(de);
+	  else if(DynParflag==2) de*=HCAL_CE_RATIO(de);
   }
   return de;
 }  

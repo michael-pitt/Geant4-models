@@ -56,8 +56,8 @@ void CaloRSteppingAction::UserSteppingAction(const G4Step* step)
 // Collect energy and track length step by step
   // energy deposit
   auto edep = step->GetTotalEnergyDeposit();
-  if(edep<=0) return; // if no energy deposited skip calculations
   edep -= step->GetNonIonizingEnergyDeposit(); // make difference of 0.5%
+  if(edep<=0) return; // if no energy deposited skip calculations
    
   // get initial step point (the post step point if fall on boundary will be defined in the next volume)
   auto preStep = step->GetPreStepPoint();
@@ -77,15 +77,18 @@ void CaloRSteppingAction::UserSteppingAction(const G4Step* step)
   CaloRTrackInformation *  trackInfo( static_cast< CaloRTrackInformation * >(track->GetUserInformation() ) );
   G4double fCharge = trackInfo->GetOriginCharge();
   
-  // fix to HCAL/e > HCAL/pi by using only EM int. in the Tile
+  // For HCAL check the particel type (different light yields for e/p/carbons
+  // assume LY(e) = LY(gamma)
   G4int DynParPDG = track->GetDynamicParticle()->GetPDGcode();
-  G4int EMflag = G4int((DynParPDG==22) || (DynParPDG==11) || (DynParPDG==-11));  
+  G4int DynParflag = 1;	// protons
+  if((DynParPDG==22) || (DynParPDG==11) || (DynParPDG==-11)) DynParflag = 0; // electrons
+  else if((DynParPDG>10e8)) DynParflag = 2; // heavy nuclei
 	  
   // Store hit in cell Matrix
   auto cell = touchable->GetVolume(fDetConstruction->SensitiveToCell);
   auto position = cell->GetObjectTranslation(); // or GetTranslation? looks like the same
-
-  fEventAction->AddHit(edep,position,cell->GetName(),fCharge, EMflag);
+  //G4cout << " energy deposit = " << edep << " particle type = " << DynParPDG << "("<<DynParflag<<") hit in " << cell->GetName() << G4endl;
+  fEventAction->AddHit(edep,position,cell->GetName(),fCharge, DynParflag);
   
 }
 

@@ -56,8 +56,8 @@ constexpr G4double  dECAL_abs = 1.5*mm, dECAL_gap = 4.5*mm;
 constexpr G4double  X0abs=X0Pb, X0gap=X0LAr, LintECALabs=LintPb, LintECALgap=LintLAr;
 // In the following line we control ECAL X0, the ratio between Pb/LAr set to 1:5
 constexpr G4double  X0ECAL=1./(1*mm/(dECAL_abs+dECAL_gap)/(X0abs/mm)+5*mm/(dECAL_abs+dECAL_gap)/(X0gap/mm));// in mm
+constexpr G4double  LintECAL=1./(1*mm/(dECAL_abs+dECAL_gap)/(LintECALabs/mm)+5*mm/(dECAL_abs+dECAL_gap)/(LintECALgap/mm)); // in mm
 constexpr G4double  ECAL_nLayerPerX0 = 1;
-constexpr G4double  LintECAL=1./(dECAL_abs/(dECAL_abs+dECAL_gap)/(LintECALabs/mm)+dECAL_gap/(dECAL_abs+dECAL_gap)/(LintECALgap/mm)); // in mm
 constexpr G4double  ECAL1_X0 = 6, ECAL2_X0 = 16, ECAL3_X0 = 3;
 constexpr G4double  ECAL1_dx = dR_01/32, ECAL1_dy = dR_01, ECAL1_dz = ECAL1_X0*X0ECAL;
 constexpr G4double  ECAL2_dx = dR_01/4, ECAL2_dy = dR_01/4, ECAL2_dz = ECAL2_X0*X0ECAL;
@@ -74,10 +74,8 @@ constexpr G4double  HCAL2_dx = dR_01, HCAL2_dy = dR_01, HCAL2_dz = HCAL2_Lint*Li
 constexpr G4double  HCAL3_dx = dR_01*2, HCAL3_dy = dR_01*2, HCAL3_dz = HCAL3_Lint*LintHCAL;
 
 //Calibration paramters:
-constexpr G4double HCAL_HE_RATIO = 0.2;
-constexpr G4double ECAL_cell_calib = 3.682;
-constexpr G4double HCAL_cell_calib = 42.006;
-
+constexpr G4double ECAL_cell_calib = 1.0;
+constexpr G4double HCAL_cell_calib = 1.0;
 
 // Special constanst related to geometry settings:
 constexpr G4int nSubCellDivECAL = 2*dECAL_gap/dECAL_abs;// (since dECAL_abs<dECAL_gap);
@@ -130,5 +128,78 @@ constexpr G4int kNofHad3Rows    = (calorSizeXY/HCAL3_dy);
 constexpr G4int kNofHad3Cells   = kNofHad3Columns * kNofHad3Rows;
 constexpr G4int kNofHad3ZRows   = HCAL_nLayerPerLint * G4int(HCAL3_Lint);
 constexpr G4int kNofHad3SubCells= (HCAL3_dy / (dHCAL_abs + dHCAL_gap)) * kNofHad3ZRows;
+
+// Scintilator responce, return LY_electron / LY_proton for BC400 from 
+// https://www.crystals.saint-gobain.com/sites/imdf.crystals.com/files/documents/sgc-organics-plastic-scintillators_0.pdf
+constexpr G4double HCAL_HE_RATIO(G4double x){
+if (x<0.1000) return 0.068401;
+else if (x<0.1300) return 0.062265 + 0.061365*x;
+else if (x<0.1700) return 0.054570 + 0.120551*x;
+else if (x<0.2000) return 0.057777 + 0.101690*x;
+else if (x<0.2370) return 0.072470 + 0.028222*x;
+else if (x<0.3000) return 0.054462 + 0.104206*x;
+else if (x<0.3330) return 0.054052 + 0.105574*x;
+else if (x<0.4000) return 0.065021 + 0.072634*x;
+else if (x<0.4700) return 0.025832 + 0.170605*x;
+else if (x<0.6000) return 0.057359 + 0.103526*x;
+else if (x<0.7100) return 0.046434 + 0.121735*x;
+else if (x<0.8200) return 0.061743 + 0.100174*x;
+else if (x<1.0000) return 0.040794 + 0.125721*x;
+else if (x<1.2500) return 0.071927 + 0.094588*x;
+else if (x<1.6677) return 0.117920 + 0.057793*x;
+else if (x<2.0000) return 0.125106 + 0.053485*x;
+else if (x<2.3500) return 0.043749 + 0.094163*x;
+else if (x<3.0000) return 0.143393 + 0.051761*x;
+else if (x<3.3600) return 0.231689 + 0.022329*x;
+else if (x<4.0000) return 0.149860 + 0.046683*x;
+else if (x<4.7000) return 0.204554 + 0.033010*x;
+else if (x<6.0000) return 0.270425 + 0.018995*x;
+else if (x<7.1000) return 0.327963 + 0.009405*x;
+else if (x<8.3000) return 0.167233 + 0.032043*x;
+else if (x<10.0000) return 0.347234 + 0.010356*x;
+else if (x<12.8300) return 0.248581 + 0.020221*x;
+else if (x<17.0000) return 0.444498 + 0.004951*x;
+else if (x<20.0000) return 0.406916 + 0.007162*x;
+else if (x<23.6400) return 0.385253 + 0.008245*x;
+else if (x<30.0000) return 0.505827 + 0.003145*x;
+else if (x<33.8000) return 0.443631 + 0.005218*x;
+else if (x<40.0000) return 0.529026 + 0.002691*x;
+else return 0.636681;
+}
+
+constexpr G4double HCAL_CE_RATIO(G4double x){
+if (x<0.1000) return 0.010518;
+else if (x<0.1300) return 0.011436 - 0.00918831*x;
+else if (x<0.1700) return 0.012791 - 0.01960885*x;
+else if (x<0.2000) return 0.010862 - 0.00826226*x;
+else if (x<0.2370) return 0.010514 - 0.00652359*x;
+else if (x<0.3000) return 0.010286 - 0.00555951*x;
+else if (x<0.3330) return 0.008618;
+else if (x<0.4000) return 0.011370 - 0.00826292*x;
+else if (x<0.4700) return 0.008672 - 0.00151972*x;
+else if (x<0.6000) return 0.009806 - 0.00393244*x;
+else if (x<0.7100) return 0.007983 - 0.00089303*x;
+else if (x<0.8200) return 0.009201 - 0.00260903*x;
+else if (x<1.0000) return 0.007486 - 0.00051751*x;
+else if (x<1.2500) return 0.009103 - 0.00213466*x;
+else if (x<1.6677) return 0.007187 - 0.00060164*x;
+else if (x<2.0000) return 0.007395 - 0.00072673*x;
+else if (x<2.3500) return 0.006832 - 0.00044495*x;
+else if (x<3.0000) return 0.005786 - 0.00000000*x;
+else if (x<3.3600) return 0.006422 - 0.00021202*x;
+else if (x<4.0000) return 0.006496 - 0.00023383*x;
+else if (x<6.0000) return 0.005560;
+else if (x<7.1000) return 0.005960 - 0.00006668*x;
+else if (x<8.3000) return 0.005915 - 0.00006032*x;
+else if (x<10.0000) return 0.005061 + 0.00004258*x;
+else if (x<12.8300) return 0.005487 - 0.00000000*x;
+else if (x<17.0000) return 0.003842 + 0.00012817*x;
+else if (x<20.0000) return 0.006021;
+else if (x<23.6400) return 0.003278 + 0.00013719*x;
+else if (x<30.0000) return 0.005536 + 0.00004167*x;
+else if (x<33.8000) return 0.002343 + 0.00014810*x;
+else if (x<40.0000) return 0.004598 + 0.00008137*x;
+else return 0.007853;
+}
 
 #endif

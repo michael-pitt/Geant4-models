@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 /// \file Geant4-models/ATLAS-simplified/include/DetectorConstruction.hh
-/// \brief Definition of the DetectorConstruction class
+/// \brief Definition of the CaloDetectorConstruction class
 //
 //
 
