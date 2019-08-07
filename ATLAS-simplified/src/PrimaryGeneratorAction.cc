@@ -48,7 +48,7 @@ CaloRPrimaryGeneratorAction::CaloRPrimaryGeneratorAction()
     = G4ParticleTable::GetParticleTable()->FindParticle("e+");
   fParticleGun->SetParticleDefinition(particleDefinition);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-  fParticleGun->SetParticleEnergy((2 + 98 * G4UniformRand() ) * GeV);
+  fParticleGun->SetParticleEnergy((10 + 40 * G4UniformRand() ) * GeV);
   fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., Zinit));
 }
 

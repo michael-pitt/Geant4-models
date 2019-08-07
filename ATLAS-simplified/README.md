@@ -67,11 +67,11 @@ Cell granularity was defined similar to ATLAS HCAL granularity at &eta;=0:
 
 ECAL and HCAL were calibrated at EM scale, and a constant calibration factor of C<sub>ECAL</sub>=3.682 
 and C<sub>HCAL</sub>=42.006 were extracted respectively, 
-by shooting electrons in an energy range between 10 to 30 GeV.
+by shooting electrons in an energy range between 10 to 50 GeV.
 
-In addition the HCAL scintillator response function for hadrons was applied. Scintilator Light Yield is depend on a particle type.
-Using data for commertial scintilator ([BC400](https://www.crystals.saint-gobain.com/sites/imdf.crystals.com/files/documents/sgc-organics-plastic-scintillators_0.pdf))
-energy deposits from hadrons were multiplied by Light Yield Ratio (LYR) factor obtained from the data sheet. 
+Besides  the HCAL scintillator response function for hadrons was applied. Scintillator Light Yield depends on a particle type.
+Using data for commercial scintillator ([BC400](https://www.crystals.saint-gobain.com/sites/imdf.crystals.com/files/documents/sgc-organics-plastic-scintillators_0.pdf))
+energy deposits from hadrons were multiplied by Light Yield Ratio (LYR) factor obtained from the datasheet. 
 The LYR factor is shown in Fig 5.
 ![Fig 5: Light Yield Ratio factor for plastic sintilator](images/LYR.png)
  
