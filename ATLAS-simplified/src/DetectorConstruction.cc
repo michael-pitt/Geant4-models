@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 /// \file Geant4-models/ATLAS-simplified/src/DetectorConstruction.cc
-/// \brief Implementation of the DetectorConstruction class
+/// \brief Implementation of the CaloRDetectorConstruction class
 //
 
 #include "G4Box.hh"
