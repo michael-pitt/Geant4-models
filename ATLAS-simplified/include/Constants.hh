@@ -61,7 +61,7 @@ constexpr G4double  ECAL_nLayerPerX0 = 1;
 constexpr G4double  ECAL1_X0 = 6, ECAL2_X0 = 16, ECAL3_X0 = 3;
 constexpr G4double  ECAL1_dx = dR_01/32, ECAL1_dy = dR_01, ECAL1_dz = ECAL1_X0*X0ECAL;
 constexpr G4double  ECAL2_dx = dR_01/4, ECAL2_dy = dR_01/4, ECAL2_dz = ECAL2_X0*X0ECAL;
-constexpr G4double  ECAL3_dx = dR_01, ECAL3_dy = dR_01, ECAL3_dz = ECAL3_X0*X0ECAL;
+constexpr G4double  ECAL3_dx = dR_01/2, ECAL3_dy = dR_01/4, ECAL3_dz = ECAL3_X0*X0ECAL;
 
 //HCAL (use boxes of Fe+Scint with 5:1 ratio)
 constexpr G4double  dHCAL_abs = 15.0*mm, dHCAL_gap = 3.0*mm, Lintabs=LintFe, Lintgap=LintSci;
