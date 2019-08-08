@@ -74,8 +74,8 @@ constexpr G4double  HCAL2_dx = dR_01, HCAL2_dy = dR_01, HCAL2_dz = HCAL2_Lint*Li
 constexpr G4double  HCAL3_dx = dR_01*2, HCAL3_dy = dR_01*2, HCAL3_dz = HCAL3_Lint*LintHCAL;
 
 //Calibration paramters:
-constexpr G4double ECAL_cell_calib = 1.0;
-constexpr G4double HCAL_cell_calib = 1.0;
+constexpr G4double ECAL_cell_calib = 3.69048;
+constexpr G4double HCAL_cell_calib = 41.9115;
 
 // Special constanst related to geometry settings:
 constexpr G4int nSubCellDivECAL = 2*dECAL_gap/dECAL_abs;// (since dECAL_abs<dECAL_gap);
