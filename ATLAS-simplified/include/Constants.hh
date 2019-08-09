@@ -54,9 +54,9 @@ constexpr G4double denSci  = 1.032*g/cm3, X0Sci = 42.544 * cm, LintSci = 69.969 
 //ECAL (use Pb-LAr mix with 1.5:4.5 ratio)
 constexpr G4double  dECAL_abs = 1.5*mm, dECAL_gap = 4.5*mm;
 constexpr G4double  X0abs=X0Pb, X0gap=X0LAr, LintECALabs=LintPb, LintECALgap=LintLAr;
-// In the following line we control ECAL X0, the ratio between Pb/LAr set to 1:5
-constexpr G4double  X0ECAL=1./(1*mm/(dECAL_abs+dECAL_gap)/(X0abs/mm)+5*mm/(dECAL_abs+dECAL_gap)/(X0gap/mm));// in mm
-constexpr G4double  LintECAL=1./(1*mm/(dECAL_abs+dECAL_gap)/(LintECALabs/mm)+5*mm/(dECAL_abs+dECAL_gap)/(LintECALgap/mm)); // in mm
+// In the following line we control ECAL X0, the ratio between Pb/LAr set to 1.1:4.5
+constexpr G4double  X0ECAL=(1.1+4.5)/(1.1/X0abs+4.5/X0gap);// in mm
+constexpr G4double  LintECAL=(1.1+4.5)/(1.1/LintECALabs+4.5/LintECALgap);// in mm
 constexpr G4double  ECAL_nLayerPerX0 = 1;
 constexpr G4double  ECAL1_X0 = 6, ECAL2_X0 = 16, ECAL3_X0 = 3;
 constexpr G4double  ECAL1_dx = dR_01/32, ECAL1_dy = dR_01, ECAL1_dz = ECAL1_X0*X0ECAL;
