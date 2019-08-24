@@ -8,7 +8,8 @@ export Geant4_DIR=PATH_TO_GEANT4_INSTALL
 #if using CERN/CVMFS with CENTOS7
 #source setupCVMFS.sh
 mkdir build; cd build
-cmake ../ATLAS-simplified; make -j
+cmake ../ATLAS-simplified && make -j
+#cmake -DCMAKE_INSTALL_PREFIX:PATH=../install ../ATLAS-simplified && make -j install
 ```
 
 # Documentation
