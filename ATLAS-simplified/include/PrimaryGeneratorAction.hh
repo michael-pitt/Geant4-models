@@ -51,7 +51,6 @@ public:
 
 private:
   G4ParticleGun* fParticleGun;
-  G4double PEnergy = 15 * GeV;
   G4double Zinit = -1 * (GunDinsance + calorThickness)/2;
 
 };

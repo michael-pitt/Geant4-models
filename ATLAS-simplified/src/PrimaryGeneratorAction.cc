@@ -48,8 +48,7 @@ CaloRPrimaryGeneratorAction::CaloRPrimaryGeneratorAction()
     = G4ParticleTable::GetParticleTable()->FindParticle("e+");
   fParticleGun->SetParticleDefinition(particleDefinition);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-  fParticleGun->SetParticleEnergy((10 + 40 * G4UniformRand() ) * GeV);
-  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., Zinit));
+  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -62,8 +61,10 @@ CaloRPrimaryGeneratorAction::~CaloRPrimaryGeneratorAction()
 void CaloRPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   
-  // If you whish to code the generated particles
-  // comment this line and uncomment the next block
+  // If you whish to generate more particles
+  // comment these lines and uncomment the next block
+  fParticleGun->SetParticleEnergy((10 + 40 * G4UniformRand() ) * GeV);
+  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., Zinit));
   fParticleGun->GeneratePrimaryVertex(anEvent);
   
   // MultiParticles

@@ -59,42 +59,71 @@
 #include "PrimaryGeneratorAction.hh"
 #include "RunAction.hh"
 
-
+namespace {
+  void PrintUsage() {
+    G4cerr << " Usage: " << G4endl;
+    G4cerr << " CaloR [-m macro ] [-u UIsession] [-s seedNumber] [-t nThreads]" << G4endl;
+    G4cerr << "   note: -t option is available only for multi-threaded mode."
+           << G4endl;
+  }
+}
 
 int main(int argc, char** argv)
 {
-  // Instantiate G4UIExecutive if there are no arguments (interactive mode)
-  G4UIExecutive* ui = nullptr;
-  G4long seed(0);
-  if ( argc == 1 ) {
-    ui = new G4UIExecutive(argc, argv);
+	
+  // Evaluate arguments
+  //
+  if ( argc > 7 ) {
+    PrintUsage();
+    return 1;
   }
-  else if( argc == 2 ){
-	  G4cout << "Using \"time(NULL)\" random seed" << G4endl;
-	  seed = (long) time(NULL);
-  }
-  else if ( argc == 3 ) {
-	  seed = (long) atoi(argv[2]);
+  
+  G4long seed = (long) time(NULL);
+  G4String macro;
+  G4String session;
+  #ifdef G4MULTITHREADED
+  G4int nThreads = 0;
+  #endif
+  for ( G4int i=1; i<argc; i=i+2 ) {
+    if      ( G4String(argv[i]) == "-m" ) macro = argv[i+1];
+    else if ( G4String(argv[i]) == "-u" ) session = argv[i+1];
+	else if ( G4String(argv[i]) == "-s" ) {
+      seed = G4UIcommand::ConvertToInt(argv[i+1]);
 	  G4cout << "Using user random seed = " <<  seed  << G4endl;
+    }	
+    #ifdef G4MULTITHREADED
+    else if ( G4String(argv[i]) == "-t" ) {
+      nThreads = std::min(G4Threading::G4GetNumberOfCores(),G4UIcommand::ConvertToInt(argv[i+1]));
+	  G4cout << "with G4MULTITHREADED: using "<<nThreads<<" of "
+			 <<G4Threading::G4GetNumberOfCores()<<" threads"<<G4endl;
+    }
+    #endif
+    else {
+      PrintUsage();
+      return 1;
+    }
+  }  
+  
+  // Detect interactive mode (if no macro provided) and define UI session
+  //
+  G4UIExecutive* ui = nullptr;
+  if ( ! macro.size() ) {
+    ui = new G4UIExecutive(argc, argv, session);
   }
-  else {
-    G4cout << "ERROR: wrong program usage" << G4endl;
-    return 0;
-  }
-
-	  
-
+  
   //choose the Random engine and set a random seed
   CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
   CLHEP::HepRandom::setTheSeed(seed);
   G4cout << "Seed: " << CLHEP::HepRandom::getTheSeed() << G4endl;
 
-  //#ifdef G4MULTITHREADED
-  //G4MTRunManager * runManager = new G4MTRunManager;
-  //runManager->SetNumberOfThreads(4);
-  //#else
+//  #ifdef G4MULTITHREADED
+//  G4MTRunManager * runManager = new G4MTRunManager;
+//  if ( nThreads > 0 ) { 
+//    runManager->SetNumberOfThreads(nThreads);
+//  }  
+//  #else
   G4RunManager * runManager = new G4RunManager;
-  //#endif
+//  #endif
   
   // Set mandatory initialization classes
   
@@ -143,8 +172,7 @@ int main(int argc, char** argv)
   if (!ui) { // batch mode
     visManager-> SetVerboseLevel(0);
     G4String command = "/control/execute ";
-    G4String fileName = argv[1];
-    UImanager-> ApplyCommand(command+fileName);    
+    UImanager-> ApplyCommand(command+macro);    
   } else {  // interactive mode : define UI session
 
     // interactive mode : define UI session
