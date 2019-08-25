@@ -96,6 +96,9 @@ constexpr G4double HCALThickness = HCAL1_dz + HCAL2_dz + HCAL3_dz;
 constexpr G4double calorSizeXY = dR_01*16; // to cover dR  = 0.8 should be 16
 constexpr G4double calorThickness = ECALThickness + HCALThickness;
 
+// Particle Gun possition
+constexpr G4double GunDinsance = 150.0 * cm;
+
 // Calorimeter cell geometry
 constexpr G4int kNofEm1Columns = (calorSizeXY/ECAL1_dx);
 constexpr G4int kNofEm1Rows    = (calorSizeXY/ECAL1_dy);

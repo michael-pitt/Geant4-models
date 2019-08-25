@@ -125,7 +125,7 @@ G4VPhysicalVolume* CaloRDetectorConstruction::DefineVolumes()
   // G4double  calorThickness  = ...
 
   auto  worldSizeXY = 1.5 * calorSizeXY;
-  auto  worldSizeZ  = 1.2 * calorThickness; 
+  auto  worldSizeZ  = 1.2 * (calorThickness + GunDinsance); 
   
   // Get materials
   auto defaultMaterial = G4Material::GetMaterial("Galactic");
@@ -185,7 +185,7 @@ G4VPhysicalVolume* CaloRDetectorConstruction::DefineVolumes()
 
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(),  // at (0,0,0)
+                 G4ThreeVector(0,0,(GunDinsance-calorThickness)/2),  // its position
                  calorLV,          // its logical volume                         
                  "Calorimeter",    // its name
                  worldLV,          // its mother  volume

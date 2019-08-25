@@ -5,11 +5,10 @@ A (very) simplified version of [ATLAS detector](https://iopscience.iop.org/artic
 ### Instalation and execution
 ```bash
 export Geant4_DIR=PATH_TO_GEANT4_INSTALL
-#if using CERN/CVMFS with CENTOS7
+#if using CERN-VMFS (https://ep-dep-sft.web.cern.ch/project/cernvm-fs)
 #source setupCVMFS.sh
 mkdir build; cd build
 cmake ../ATLAS-simplified && make -j
-#cmake -DCMAKE_INSTALL_PREFIX:PATH=../install ../ATLAS-simplified && make -j install
 ```
 
 # Documentation

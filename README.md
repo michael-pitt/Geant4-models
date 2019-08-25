@@ -14,15 +14,14 @@ The examples are build with CMake cross-platform, and compiled with GEANT4 insta
 To build a specific model, one need to setup corresponding ENV:
 ```bash
 export Geant4_DIR=PATH_TO_GEANT4_INSTALL
-#if using CERN/CVMFS with CENTOS7
+#if using CERN-VMFS (https://ep-dep-sft.web.cern.ch/project/cernvm-fs)
 #source setupCVMFS.sh
 ```
 
 now one can build the model:
 ```bash
 mkdir -pv Geant4-models/EXAMPLE/build; cd Geant4-models/EXAMPLE/build
-cmake ../
-make -j
+cmake ../ && make -j
 ```
 
 ## ATLAS-simplified
