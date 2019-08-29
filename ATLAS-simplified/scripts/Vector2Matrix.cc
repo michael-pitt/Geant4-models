@@ -22,7 +22,7 @@ const Double_t cell_dEta = calorSizeXY / nPixEta;
 const Double_t cell_dPhi = calorSizeXY / nPixPhi;
 const int kNaxPrimaries = 2;
 
-void CreateInputMatrix(TString infile = "PFlowNtuple.root")
+void Vector2Matrix(TString infile = "events.root")
 {
 
   float cell_Energy[nLayers][nPixPhi][nPixEta];
@@ -48,7 +48,7 @@ void CreateInputMatrix(TString infile = "PFlowNtuple.root")
   vector<double>  *particle_e;
   vector<int>  *particle_pdgId;
   
-  TString directory = "/mnt/Lustre/agrp/pitt/ML/Simulation/Analysis";
+  TString directory = getenv("PWD");
   TChain * oldtree = new TChain("physics");   
   TString outfile = infile; outfile.ReplaceAll(".root",file_ref+".root");
   cout << "Will create "<<directory <<"/"<<outfile<< endl;
