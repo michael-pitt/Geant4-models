@@ -32,7 +32,7 @@ const Double_t cell_dEta = calorSizeXY / nPixEta;
 const Double_t cell_dPhi = calorSizeXY / nPixPhi;
 const int kNaxPrimaries = 2;
 
-void Matrix2Matrix(TString infile = "events.root")
+void Matrix2Matrix(TString infile = "events_6D64x64.root")
 {
 
 // old branches
@@ -127,7 +127,7 @@ void Matrix2Matrix(TString infile = "events.root")
 	}}
 
 
-
+/*
 
 
 
@@ -156,14 +156,7 @@ void Matrix2Matrix(TString infile = "events.root")
 	for(int i=0;i<nPixPhi;i++){for(int j=0;j<nPixEta;j++){for(int k=0;k<nLayers;k++){
 		cell_Energy[k][i][j] = cellCh_Energy[k][i][j]+cellNu_Energy[k][i][j];
 	}}}
-	n_primaries = int(particle_pdgId->size());
-	for (int i=0;i<n_primaries;i++){
-		par_ID[i] = (int(particle_pdgId->at(i)));
-		par_dx0[i] = (float)particle_x->at(i);
-		par_dy0[i] = (float)particle_y->at(i);
-		par_dx1[i] = (float)(particle_x->at(i) + particle_px->at(i)*1500./particle_e->at(i));
-		par_dy1[i] = (float)(particle_y->at(i) + particle_py->at(i)*1500./particle_e->at(i));
-	}
+*/
 	newtree->Fill();
   }
 
