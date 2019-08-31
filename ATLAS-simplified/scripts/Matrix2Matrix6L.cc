@@ -17,12 +17,12 @@ using namespace std;
 const Int_t nLayers = 6;
 
 // Old layer dimentions
-const nPixEta = 64, nPixPhi = 64;
+const Int_t nPixEta = 64, nPixPhi = 64;
 
 // New layer dimentions
 TString file_ref="ATLAS_resolution"; 
-const nPixEta_new[nLayers] = {64, 64, 32, 16, 16, 8};
-const nPixPhi_new[nLayers] = {32, 64, 32, 16, 16, 8};
+const Int_t nPixEta_new[nLayers] = {64, 64, 32, 16, 16, 8};
+const Int_t nPixPhi_new[nLayers] = {32, 64, 32, 16, 16, 8};
 
 // common detector parameters
 const Double_t GeV=1e3;
@@ -32,7 +32,7 @@ const Double_t cell_dEta = calorSizeXY / nPixEta;
 const Double_t cell_dPhi = calorSizeXY / nPixPhi;
 const int kNaxPrimaries = 2;
 
-void Matrix2Matrix(TString infile = "events_6D64x64.root")
+void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 {
 
 // old branches
@@ -64,7 +64,7 @@ void Matrix2Matrix(TString infile = "events_6D64x64.root")
  
   TString directory = getenv("PWD");
   TChain * oldtree = new TChain("EventTree");   
-  TString outfile = infile; outfile.ReplaceAll(".root",file_ref+".root");
+  TString outfile = infile; outfile.ReplaceAll(".root","_"+file_ref+".root");
   cout << "Will create "<<directory <<"/"<<outfile<< endl;
   oldtree->Add(directory+"/"+infile);
 
@@ -73,11 +73,13 @@ void Matrix2Matrix(TString infile = "events_6D64x64.root")
   oldtree->SetBranchAddress("cellNu_Energy", cellNu_Energy);
 
   TFile * outputfile = new TFile(directory+"/"+outfile,"recreate");
-  oldtree->LoadTree(0);
-  TTree *newtree = oldtree->GetTree()->CloneTree(0);
-  newtree->SetBranchStatus("*",0);
-  newtree->SetBranchStatus("n_primaries",1);
-  newtree->SetBranchStatus("par_*",1);
+  //oldtree->LoadTree(0);
+  //TTree *newtree = oldtree->GetTree()->CloneTree(0);
+  //newtree->SetBranchStatus("*",0);
+  //newtree->SetBranchStatus("n_primaries",1);
+  //newtree->SetBranchStatus("par_*",1);
+  TTree *newtree = new TTree("EventTree","Detector images with varying resolution per layer");
+
   
   newtree->Branch("cell_Energy_L1",cell_Energy_L1,Form("cell_Energy_L1[%d][%d]/F",nPixPhi_new[0],nPixEta_new[0]));
   newtree->Branch("cell_Energy_L2",cell_Energy_L2,Form("cell_Energy_L2[%d][%d]/F",nPixPhi_new[1],nPixEta_new[1]));
@@ -106,57 +108,76 @@ void Matrix2Matrix(TString infile = "events_6D64x64.root")
 	oldtree->GetEntry(entry);
 	if ((entry%(nentries/10))==0) printf("%f complete\n",100*(double)entry/nentries);
 	
-	// Reset variables in the new tree:
+	// Fill all variables, depending on the output resolution
+	// NOTE: output resolution is always lower than the input!!!
 	for(int i=0;i<nPixPhi_new[0];i++){for(int j=0;j<nPixEta_new[0];j++){
 		cellCh_Energy_L1[i][j] = 0; cellNu_Energy_L1[i][j] = 0;
+		int phi_bins = nPixPhi / nPixPhi_new[0];
+		int eta_bins = nPixEta / nPixEta_new[0];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L1[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L1[i][j] += cellNu_Energy[0][i_phi][j_eta];
+		}}
+		cell_Energy_L1[i][j] = cellCh_Energy_L1[i][j] + cellNu_Energy_L1[i][j];
 	}}
+
 	for(int i=0;i<nPixPhi_new[1];i++){for(int j=0;j<nPixEta_new[1];j++){
 		cellCh_Energy_L2[i][j] = 0; cellNu_Energy_L2[i][j] = 0;
+		int phi_bins = nPixPhi / nPixPhi_new[1];
+		int eta_bins = nPixEta / nPixEta_new[1];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L2[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L2[i][j] += cellNu_Energy[0][i_phi][j_eta];
+		}}
+		cell_Energy_L2[i][j] = cellCh_Energy_L2[i][j] + cellNu_Energy_L2[i][j];
 	}}
 	for(int i=0;i<nPixPhi_new[2];i++){for(int j=0;j<nPixEta_new[2];j++){
 		cellCh_Energy_L3[i][j] = 0; cellNu_Energy_L3[i][j] = 0;
+		int phi_bins = nPixPhi / nPixPhi_new[2];
+		int eta_bins = nPixEta / nPixEta_new[2];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L3[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L3[i][j] += cellNu_Energy[0][i_phi][j_eta];
+		}}
+		cell_Energy_L3[i][j] = cellCh_Energy_L3[i][j] + cellNu_Energy_L3[i][j];
 	}}
 	for(int i=0;i<nPixPhi_new[3];i++){for(int j=0;j<nPixEta_new[3];j++){
 		cellCh_Energy_L4[i][j] = 0; cellNu_Energy_L4[i][j] = 0;
+		int phi_bins = nPixPhi / nPixPhi_new[3];
+		int eta_bins = nPixEta / nPixEta_new[3];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L4[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L4[i][j] += cellNu_Energy[0][i_phi][j_eta];
+		}}
+		cell_Energy_L4[i][j] = cellCh_Energy_L4[i][j] + cellNu_Energy_L4[i][j];
 	}}
 	for(int i=0;i<nPixPhi_new[4];i++){for(int j=0;j<nPixEta_new[4];j++){
 		cellCh_Energy_L5[i][j] = 0; cellNu_Energy_L5[i][j] = 0;
+		int phi_bins = nPixPhi / nPixPhi_new[4];
+		int eta_bins = nPixEta / nPixEta_new[4];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L5[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L5[i][j] += cellNu_Energy[0][i_phi][j_eta];
+		}}
+		cell_Energy_L5[i][j] = cellCh_Energy_L5[i][j] + cellNu_Energy_L5[i][j];
 	}}
 	for(int i=0;i<nPixPhi_new[5];i++){for(int j=0;j<nPixEta_new[5];j++){
 		cellCh_Energy_L6[i][j] = 0; cellNu_Energy_L6[i][j] = 0;
-	}}
-
-
-/*
-
-
-
-	
-	int n_Cells = cell_e->size();
-	for (int i = 0; i < n_Cells; i++){
-		float e = (float)cell_e->at(i), f = (float)cell_chfrac->at(i);
-		int layer = cell_l->at(i);
-		double x = cell_x->at(i), y = cell_y->at(i);	
-		double dx = cell_dx->at(i), dy = cell_dy->at(i);
-		int BinEtaMin = (x-dx/2 + calorSizeXY/2) / cell_dEta;
-		int BinEtaMax = (x+dx/2 + calorSizeXY/2) / cell_dEta;
-		int BinPhiMin = (y-dy/2 + calorSizeXY/2) / cell_dPhi;
-		int BinPhiMax = (y+dy/2 + calorSizeXY/2) / cell_dPhi;
-		if(BinEtaMax==BinEtaMin) BinEtaMax++;
-		if(BinPhiMax==BinPhiMin) BinPhiMax++;
-		float denom = (BinEtaMax-BinEtaMin)*(BinPhiMax-BinPhiMin); //democratic
-		for(int bin_eta=BinEtaMin;bin_eta<BinEtaMax;bin_eta++){
-		for(int bin_phi=BinPhiMin;bin_phi<BinPhiMax;bin_phi++){
-		  cellCh_Energy[layer-1][bin_phi][bin_eta] += e*f/denom;
-          cellNu_Energy[layer-1][bin_phi][bin_eta] += e*(1.0-f)/denom;
+		int phi_bins = nPixPhi / nPixPhi_new[5];
+		int eta_bins = nPixEta / nPixEta_new[5];
+		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
+		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
+			cellCh_Energy_L6[i][j] += cellCh_Energy[0][i_phi][j_eta];
+			cellNu_Energy_L6[i][j] += cellNu_Energy[0][i_phi][j_eta];
 		}}
-	}
+		cell_Energy_L6[i][j] = cellCh_Energy_L6[i][j] + cellNu_Energy_L6[i][j];
+	}}
 	
-	// Fill output tree:
-	for(int i=0;i<nPixPhi;i++){for(int j=0;j<nPixEta;j++){for(int k=0;k<nLayers;k++){
-		cell_Energy[k][i][j] = cellCh_Energy[k][i][j]+cellNu_Energy[k][i][j];
-	}}}
-*/
 	newtree->Fill();
   }
 
