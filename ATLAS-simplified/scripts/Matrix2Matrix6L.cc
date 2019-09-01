@@ -128,8 +128,8 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 		int eta_bins = nPixEta / nPixEta_new[1];
 		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
 		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
-			cellCh_Energy_L2[i][j] += cellCh_Energy[0][i_phi][j_eta];
-			cellNu_Energy_L2[i][j] += cellNu_Energy[0][i_phi][j_eta];
+			cellCh_Energy_L2[i][j] += cellCh_Energy[1][i_phi][j_eta];
+			cellNu_Energy_L2[i][j] += cellNu_Energy[1][i_phi][j_eta];
 		}}
 		cell_Energy_L2[i][j] = cellCh_Energy_L2[i][j] + cellNu_Energy_L2[i][j];
 	}}
@@ -139,8 +139,8 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 		int eta_bins = nPixEta / nPixEta_new[2];
 		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
 		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
-			cellCh_Energy_L3[i][j] += cellCh_Energy[0][i_phi][j_eta];
-			cellNu_Energy_L3[i][j] += cellNu_Energy[0][i_phi][j_eta];
+			cellCh_Energy_L3[i][j] += cellCh_Energy[2][i_phi][j_eta];
+			cellNu_Energy_L3[i][j] += cellNu_Energy[2][i_phi][j_eta];
 		}}
 		cell_Energy_L3[i][j] = cellCh_Energy_L3[i][j] + cellNu_Energy_L3[i][j];
 	}}
@@ -150,8 +150,8 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 		int eta_bins = nPixEta / nPixEta_new[3];
 		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
 		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
-			cellCh_Energy_L4[i][j] += cellCh_Energy[0][i_phi][j_eta];
-			cellNu_Energy_L4[i][j] += cellNu_Energy[0][i_phi][j_eta];
+			cellCh_Energy_L4[i][j] += cellCh_Energy[3][i_phi][j_eta];
+			cellNu_Energy_L4[i][j] += cellNu_Energy[3][i_phi][j_eta];
 		}}
 		cell_Energy_L4[i][j] = cellCh_Energy_L4[i][j] + cellNu_Energy_L4[i][j];
 	}}
@@ -161,8 +161,8 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 		int eta_bins = nPixEta / nPixEta_new[4];
 		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
 		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
-			cellCh_Energy_L5[i][j] += cellCh_Energy[0][i_phi][j_eta];
-			cellNu_Energy_L5[i][j] += cellNu_Energy[0][i_phi][j_eta];
+			cellCh_Energy_L5[i][j] += cellCh_Energy[4][i_phi][j_eta];
+			cellNu_Energy_L5[i][j] += cellNu_Energy[4][i_phi][j_eta];
 		}}
 		cell_Energy_L5[i][j] = cellCh_Energy_L5[i][j] + cellNu_Energy_L5[i][j];
 	}}
@@ -172,8 +172,8 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
 		int eta_bins = nPixEta / nPixEta_new[5];
 		for(int i_phi = i*phi_bins; i_phi < (i+1)*phi_bins; i_phi++){
 		for(int j_eta = j*eta_bins; j_eta < (j+1)*eta_bins; j_eta++){
-			cellCh_Energy_L6[i][j] += cellCh_Energy[0][i_phi][j_eta];
-			cellNu_Energy_L6[i][j] += cellNu_Energy[0][i_phi][j_eta];
+			cellCh_Energy_L6[i][j] += cellCh_Energy[5][i_phi][j_eta];
+			cellNu_Energy_L6[i][j] += cellNu_Energy[5][i_phi][j_eta];
 		}}
 		cell_Energy_L6[i][j] = cellCh_Energy_L6[i][j] + cellNu_Energy_L6[i][j];
 	}}
