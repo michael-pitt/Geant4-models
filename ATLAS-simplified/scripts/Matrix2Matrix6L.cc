@@ -62,17 +62,16 @@ void Matrix2Matrix6L(TString infile = "events_6D64x64.root")
   float cellNu_Energy_L5[nPixPhi_new[4]][nPixEta_new[4]];
   float cellNu_Energy_L6[nPixPhi_new[5]][nPixEta_new[5]];
  
-  TString directory = getenv("PWD");
   TChain * oldtree = new TChain("EventTree");   
-  TString outfile = infile; outfile.ReplaceAll(".root","_"+file_ref+".root");
-  cout << "Will create "<<directory <<"/"<<outfile<< endl;
-  oldtree->Add(directory+"/"+infile);
+  TString outfile = infile.Tokenize("/")->Last()->GetName(); outfile.ReplaceAll(".root","_"+file_ref+".root");
+  cout << "Will create "<<outfile<< endl;
+  oldtree->Add(infile);
 
   oldtree->SetBranchAddress("cell_Energy", cell_Energy);
   oldtree->SetBranchAddress("cellCh_Energy", cellCh_Energy);
   oldtree->SetBranchAddress("cellNu_Energy", cellNu_Energy);
 
-  TFile * outputfile = new TFile(directory+"/"+outfile,"recreate");
+  TFile * outputfile = new TFile(outfile,"recreate");
   //oldtree->LoadTree(0);
   //TTree *newtree = oldtree->GetTree()->CloneTree(0);
   //newtree->SetBranchStatus("*",0);

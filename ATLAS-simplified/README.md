@@ -11,7 +11,14 @@ mkdir build; cd build
 cmake ../ATLAS-simplified && make -j
 ```
 
-# Documentation
+# Outline:
+
+* **[Description](#1geometrydescription)** - Description of the detector's geometry (ECAL and HCAL)
+* **[Resolution](#2energyresponce)** - Section about the detector responce and resolution
+* **[Output](#output)** - output files
+* **[Scripts](#scripts)** - List of scripts that conver the output files to different formats
+
+
 
 ## 1 Geometry description:
 
@@ -85,9 +92,30 @@ The detector energy resolution for 15 GeV pions is shown in Fig 2.3.
 
 ![Fig 2.3: Calorimeter energy responce](images/Cal_responce_15GeV.png)
 
-
+[:arrow_up: TOP](#outline)
 ## Output
 
 The output is a ROOT file that contains `vector<float>` of cell energy and coordinates, as well as the information about primary particles.
 In `src/RunAction.cc` implemenation of saving vectors in ROOT file using CreateNtupleDColumn of GEANT4 G4AnalysisManager instance is shown.
 
+[:arrow_up: TOP](#outline)
+## Scripts
+
+To convert the output file that contains vectors of cells to 2D array execute:
+```bash
+root -l -q -b 'Vector2Matrix.cc("PATH_TO_FILE")'
+```
+
+To change resolutoin (degrade from high resolution image to low resolution image) use:
+```bash
+root -l -q -b 'Matrix2Matrix6L.cc("PATH_TO_FILE")'
+```
+
+the default setting are the ALTAS detector granularity
+
+To convert the image with constant high granularity (all layers are of the same size), one can call the next function:
+```bash
+root -l -q -b 'Matrix6L2Matrix.cc("PATH_TO_FILE")'
+```
+
+[:arrow_up: TOP](#outline)

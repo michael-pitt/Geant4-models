@@ -48,11 +48,10 @@ void Vector2Matrix(TString infile = "events.root")
   vector<double>  *particle_e;
   vector<int>  *particle_pdgId;
   
-  TString directory = getenv("PWD");
   TChain * oldtree = new TChain("physics");   
-  TString outfile = infile; outfile.ReplaceAll(".root",file_ref+".root");
-  cout << "Will create "<<directory <<"/"<<outfile<< endl;
-  oldtree->Add(directory+"/"+infile);
+  TString outfile = infile.Tokenize("/")->Last()->GetName(); outfile.ReplaceAll(".root",file_ref+".root");
+  cout << "Will create "<<outfile<< endl;
+  oldtree->Add(infile);
 
   oldtree->SetBranchAddress("cell_e", &cell_e);
   oldtree->SetBranchAddress("cell_x", &cell_x);
@@ -69,7 +68,7 @@ void Vector2Matrix(TString infile = "events.root")
   oldtree->SetBranchAddress("particle_pdgId", &particle_pdgId);
 
 
-  TFile * outputfile = new TFile(directory+"/"+outfile,"recreate");
+  TFile * outputfile = new TFile(outfile,"recreate");
   TTree *newtree = new TTree("EventTree",Form("Detector images of dim. of %d x %d x %d",nLayers,nPixPhi,nPixEta));
   newtree->Branch("cell_Energy",cell_Energy,Form("cell_Energy[%d][%d][%d]/F",nLayers,nPixPhi,nPixEta));
   newtree->Branch("cellCh_Energy",cellCh_Energy,Form("cellCh_Energy[%d][%d][%d]/F",nLayers,nPixPhi,nPixEta));
