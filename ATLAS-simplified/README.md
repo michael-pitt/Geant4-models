@@ -13,8 +13,8 @@ cmake ../ATLAS-simplified && make -j
 
 # Outline:
 
-* **[Description](#1geometrydescription)** - Description of the detector's geometry (ECAL and HCAL)
-* **[Resolution](#2energyresponce)** - Section about the detector responce and resolution
+* **[Description](#1-geometry-description)** - Description of the detector's geometry (ECAL and HCAL)
+* **[Resolution](#2-energy-response)** - Section about the detector responce and resolution
 * **[Output](#output)** - output files
 * **[Scripts](#scripts)** - List of scripts that conver the output files to different formats
 
